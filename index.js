@@ -1,58 +1,35 @@
-const RemixFramework = {
-  name: 'Remix',
-  built: {
-    name: 'Next',
-    built: {
-      name: 'React',
-      built: {
-        name: 'Javascript',
-      },
-    },
-  },
-};
+class Arr {
+  static newMap(arr, cb) {
+    let newArray = [];
+    for (let i = 0; i < arr.length; i++) {
+      newArray.push(cb(arr[i]));
+    }
+    return newArray;
+  }
 
-const DjangoFramework = {
-  name: 'Django',
-  built: {
-    name: 'Python',
-    built: {
-      name: 'C++',
-      built: {
-        name: 'C',
-        built: {name: 'Jack'}
+  static newFilter(arr, cb) {
+    let newArray = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (cb(arr[i])) {
+        newArray.push(arr[i]);
       }
     }
-  }
-}
-
-function countDown(num) {
-  if (num <= 0) {
-    console.log('Hooray');
-    return 'end';
-  }
-  console.log(num);
-  countDown(num - 1);
-}
-
-// countDown(10);
-
-function sumRange(num, total = 0) {
-  if (num <= 0) {
-    return total;
+    return newArray;
   }
 
-  return sumRange(num - 1, total + num);
-}
-
-function printFramework(framework) {
-  if (framework.built === null || framework.built === undefined) {
-    console.log(framework.name)
-    return 'Nothing';
+  static newForeach(arr, cb) {
+    for (let i = 0; i < arr.length; i++) {
+      cb(arr[i]);
+    }
   }
-
-  console.log(framework.name);
-  return printFramework(framework.built);
+  
 }
 
-// printFramework(RemixFramework);
-printFramework(DjangoFramework);
+
+
+let numbers = [1, 2, 3, 4];
+
+console.log(Arr.newMap(numbers, (number) => number * 3));
+console.log(Arr.newFilter(numbers, (number) => number % 2 === 0))
+
+Arr.newForeach(numbers, (number) => console.log(number))
